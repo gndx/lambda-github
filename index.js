@@ -6,27 +6,27 @@ function httpGet() {
   return new Promise(((resolve, reject) => {
     var options = {
       host: 'masterquote.herokuapp.com',
-      port: 443,
+      port: 443, // usar https
       path: '/random',
       method: 'GET',
     };
     const request = https.request(options, (response) => {
-      response.setEncoding('utf8');
-      let returnData = '';
+      response.setEncoding('utf8'); // encoder...
+      let returnData = ''; // sabe data
 
       response.on('data', (chunk) => {
         returnData += chunk;
-      });
+      }); // data/
 
       response.on('end', () => {
         resolve(JSON.parse(returnData));
-      });
+      }); // cuando termine resolvemos en json
 
       response.on('error', (error) => {
         reject(error);
-      });
+      }); // en caso de error
     });
-    request.end();
+    request.end(); // terminamos el request
   }));
 }
 
